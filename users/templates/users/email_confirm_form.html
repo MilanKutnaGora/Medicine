@@ -1,0 +1,33 @@
+{% extends 'catalog/base.html' %}
+{% block content_1 %}
+<div class="col-12">
+    <form method="post" class="row" enctype="multipart/form-data">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="card mt-5 text-center">
+                <div class="card header">
+                    <h4 class="card-title">
+                        Введите код отправленный на почту
+                    </h4>
+                    {% if not user.is_active %}
+                    <h5 class="card-title">
+                        Введен неверный код
+                    </h5>
+                    {% else %}
+                    <h5 class="card-title">
+                        Введен верный код
+                    </h5>
+                    {% endif %}
+                    <div class="card body">
+                        {% csrf_token %}
+                        <input type="text" name="ver_code" class="form-control" id="name"
+                               placeholder="Введите код" required>
+                        <input type="submit" class="btn btn-lg btn-block btn-outline-warning"
+                               value="Подтвердить">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
