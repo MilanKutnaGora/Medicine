@@ -1,0 +1,19 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content_1 %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ object }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                    <li>- {{ object.description }}</li>
+                    <li>- Категория {{ object.category }}</li>
+                    <li>- цена {{ object.price }} руб.</li>
+                    <li>- Гарантия 12 месяцев </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
