@@ -1,9 +1,6 @@
 {% extends 'catalog/base.html' %}
 {% load my_tags %}
 {% block content_1 %}
-    <div class="col-12 mb-5">
-    <a class="btn btn-outline-primary" href="{% url 'catalog:create_product' %}">Добавить услугу</a>
-    </div>
     {% for object in object_list %}
         <div class="col-3">
             <div class="card mb-4 box-shadow">
@@ -14,19 +11,15 @@
                     <img src="{% mymedia object.image %}" class="card-img-top object-fit-none" style="height:100px;"/>
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">{{ object.price }}</h1>
+                    <h1 class="card-title pricing-card-title">Цена услуги {{ object.price }}</h1>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                         <li>- {{ object.description }}</li>
-                        <li>- Категория {{ object.category }}</li>
-                        <li>- Цена {{ object.price }} руб.</li>
-                        <li>- Пользователь: {{ object.owner|default:'Без пользователя' }}</li>
-                        <li>- Гарантия 12 месяцев </li>
                     </ul>
                     {% if perms.catalog.view_product %}
-                    <a href="{% url 'catalog:view_product' object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Просмотр</a>
+                    <a href="{% url 'catalog:view_product' object.pk %}" class="btn btn-sm btn-block btn-outline-primary">Запись на прием к врачу</a>
                     {% endif %}
                     {% if perms.catalog.change_product %}
-                    <a href="{% url 'catalog:update_product' object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Редактировать</a>
+                    <a href="{% url 'catalog:update_product' object.pk %}" class="btn btn-sm btn-block btn-outline-primary">Редактировать</a>
                     {% endif %}
                 </div>
             </div>
