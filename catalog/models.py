@@ -29,7 +29,7 @@ class Product(models.Model):
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='пользователь', on_delete=models.SET_NULL,
                               **NULLABLE)
-    is_published = models.BooleanField(default=False, verbose_name='опубликовано')
+    is_published = models.BooleanField(default=False, verbose_name='опубликовано на сайте')
 
     def __str__(self):
         return f"{self.name}"

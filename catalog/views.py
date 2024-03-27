@@ -10,7 +10,10 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from catalog.forms import ProductForm, VersionForm, ModeratorForm
 from catalog.models import Product, Version
-# from catalog.services import get_cached_category_for_product
+from catalog.services import get_cached_category_for_product
+
+
+
 
 
 def index(request):
