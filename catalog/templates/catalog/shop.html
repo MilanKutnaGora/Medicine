@@ -16,7 +16,7 @@
                         <li>- {{ object.description }}</li>
                     </ul>
                     {% if perms.catalog.view_product %}
-                    <a href="{% url 'catalog:view_product' object.pk %}" class="btn btn-sm btn-block btn-outline-primary">Запись на прием к врачу</a>
+                    <a href="{% url 'record:create' %}" class="btn btn-sm btn-block btn-outline-primary">Запись на прием к врачу</a>
                     {% endif %}
                     {% if perms.catalog.change_product %}
                     <a href="{% url 'catalog:update_product' object.pk %}" class="btn btn-sm btn-block btn-outline-primary">Редактировать</a>

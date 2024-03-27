@@ -19,6 +19,9 @@ from catalog.services import get_cached_category_for_product
 def index(request):
     return render(request, 'catalog/home.html', )
 
+def staff(request):
+    return render(request, 'catalog/staff.html', )
+
 def index_contacts(request):
     if request.method == 'POST':
         name = request.POST.get('name')
