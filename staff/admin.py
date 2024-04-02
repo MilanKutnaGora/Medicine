@@ -14,5 +14,5 @@ class StaffAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'surname', 'phone', 'email', 'avatar', 'description', 'name_category', 'is_published')
     list_display_links = ('id', 'name')
     ordering = ('id',)
-    list_filter = ('category',)
+    # list_filter = ('rank',)
     search_fields = ('surname', 'description',)

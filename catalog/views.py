@@ -10,10 +10,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from catalog.forms import ServiceForm, ModeratorForm
 from catalog.models import Service, Category
-from catalog.services import get_cached_category_for_product
-
-
-
+from catalog.services import get_cached_category_for_service
 
 
 def index(request):
@@ -27,9 +24,9 @@ def index_contacts(request):
         print(f'{name} ({email}): {message}')
     return render(request, 'catalog/contacts.html')
 
-class ProductListView(ListView):
+class ServiceListView(ListView):
     model = Service
-    template_name = 'catalog/shop.html'
+    template_name = 'catalog/service.html'
 
     def get_queryset(self):
         queryset = super().get_queryset().filter(is_published=True)
@@ -41,32 +38,32 @@ class ProductListView(ListView):
 
 
 
-class ProductDetailView(PermissionRequiredMixin, DetailView):
+class ServiceDetailView(PermissionRequiredMixin, DetailView):
     model = Service
-    permission_required = 'catalog.view_product'
+    permission_required = 'catalog.view_service'
 
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        context_data['category'] = get_cached_category_for_product()
+        context_data['category'] = get_cached_category_for_service()
         return context_data
 
 
-def index_product(request, pk):
+def index_service(request, pk):
     category_item = Service.objects.get(pk=pk)
     context = {
         'object_list': Service.objects.filter(category_id=pk),
         'title': f'{category_item.name}'
         }
 
-    return render(request, 'catalog/product.html', context)
+    return render(request, 'catalog/medicine.html', context)
 
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ServiceCreateView(LoginRequiredMixin, CreateView):
    model = Service
    form_class = ServiceForm
-   success_url = reverse_lazy('catalog:index_shop')
+   success_url = reverse_lazy('catalog:index_medicine')
 
    def form_valid(self, form):
        if form.is_valid():
@@ -81,11 +78,11 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
                json.dump(contact_dict, f, indent=2, ensure_ascii=False)
        return super().form_valid(form)
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ServiceUpdateView(LoginRequiredMixin, UpdateView):
     model = Service
     form_class = ServiceForm
-    success_url = reverse_lazy('catalog:index_shop')
-    permission_required = 'catalog.change_product'
+    success_url = reverse_lazy('catalog:index_medicine')
+    permission_required = 'catalog.change_service'
 
 
 
@@ -112,7 +109,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         custom_perms: tuple = (
             'catalog_app.set_is_published',
             'catalog_app.set_category',
-            'catalog_app.set_product_description',
+            'catalog_app.set_service_description',
         )
         if _user.is_superuser or _user == _instance.owner:
             return True

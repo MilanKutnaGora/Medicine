@@ -4,7 +4,7 @@ from django.core.cache import cache
 from catalog.models import Category
 
 
-def get_cached_category_for_product():
+def get_cached_category_for_service():
     if settings.CASHE_ENABLED:
         key = f'category_list'
         category_list = cache.get(key)

@@ -2,16 +2,16 @@ from django.urls import path
 from django.views.decorators.cache import cache_page
 
 from catalog.apps import CatalogConfig
-from catalog.views import index, index_contacts, ProductListView, ProductDetailView, ProductCreateView, ProductUpdateView
+from catalog.views import index, index_contacts, ServiceListView, ServiceDetailView, ServiceCreateView, ServiceUpdateView
 
 app_name = CatalogConfig.name
 
 urlpatterns = [
     path('', cache_page(60)(index), name='index'),
     path('contacts/', index_contacts, name='index_contact'),
-    path('shop/', ProductListView.as_view(), name='index_shop'),
-    path('shop/product/<int:pk>/', ProductDetailView.as_view(), name='index_product'),
-    path('shop/create/', ProductCreateView.as_view(), name='create_product'),
-    path('shop/update/<int:pk>/', ProductUpdateView.as_view(), name='update_product'),
-    path('shop/view/<int:pk>/', ProductDetailView.as_view(), name='view_product'),
+    path('medicine/', ServiceListView.as_view(), name='index_medicine'),
+    path('medicine/product/<int:pk>/', ServiceDetailView.as_view(), name='index_service'),
+    path('medicine/create/', ServiceCreateView.as_view(), name='create_service'),
+    path('medicine/update/<int:pk>/', ServiceUpdateView.as_view(), name='update_service'),
+    path('medicine/view/<int:pk>/', ServiceDetailView.as_view(), name='view_service'),
 ]

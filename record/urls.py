@@ -1,6 +1,5 @@
 from django.urls import path
 from record.apps import RecordConfig
-from catalog.views import index, index_contacts, ProductListView, ProductDetailView
 from record.views import RecordCreateView, RecordListView, RecordDetailView, RecordUpdateView, RecordDeleteView
 
 app_name = RecordConfig.name

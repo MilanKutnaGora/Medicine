@@ -35,13 +35,13 @@ class Service(models.Model):
         return f"{self.name}"
 
     class Meta:
-        verbose_name = 'услуга'
-        verbose_name_plural = 'услуги'
+        verbose_name = 'медицинская услуга'
+        verbose_name_plural = 'медицинские услуги'
 
         permissions = [
             (
                 'set_published_status',
-                'can publish product'
+                'can publish service'
             )
         ]
 

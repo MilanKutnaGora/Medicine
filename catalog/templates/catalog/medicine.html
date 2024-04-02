@@ -15,11 +15,8 @@
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                         <li>- {{ object.description }}</li>
                     </ul>
-                    {% if perms.catalog.view_product %}
-                    <a href="{% url 'catalog:view_product' object.pk %}" class="btn btn-sm btn-block btn-outline-primary">Запись на прием к врачу</a>
-                    {% endif %}
-                    {% if perms.catalog.change_product %}
-                    <a href="{% url 'catalog:update_product' object.pk %}" class="btn btn-sm btn-block btn-outline-primary">Редактировать</a>
+                    {% if perms.catalog.view_service %}
+                    <a href="{% url 'catalog:view_service' object.pk %}" class="btn btn-sm btn-block btn-outline-primary">Запись на прием к врачу</a>
                     {% endif %}
                 </div>
             </div>
