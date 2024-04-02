@@ -8,8 +8,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-from catalog.forms import ProductForm, VersionForm, ModeratorForm
-from catalog.models import Product, Version
+from catalog.forms import ServiceForm, ModeratorForm
+from catalog.models import Service, Category
 from catalog.services import get_cached_category_for_product
 
 
@@ -28,7 +28,7 @@ def index_contacts(request):
     return render(request, 'catalog/contacts.html')
 
 class ProductListView(ListView):
-    model = Product
+    model = Service
     template_name = 'catalog/shop.html'
 
     def get_queryset(self):
@@ -42,7 +42,7 @@ class ProductListView(ListView):
 
 
 class ProductDetailView(PermissionRequiredMixin, DetailView):
-    model = Product
+    model = Service
     permission_required = 'catalog.view_product'
 
 
@@ -53,9 +53,9 @@ class ProductDetailView(PermissionRequiredMixin, DetailView):
 
 
 def index_product(request, pk):
-    category_item = Product.objects.get(pk=pk)
+    category_item = Service.objects.get(pk=pk)
     context = {
-        'object_list': Product.objects.filter(category_id=pk),
+        'object_list': Service.objects.filter(category_id=pk),
         'title': f'{category_item.name}'
         }
 
@@ -64,8 +64,8 @@ def index_product(request, pk):
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
-   model = Product
-   form_class = ProductForm
+   model = Service
+   form_class = ServiceForm
    success_url = reverse_lazy('catalog:index_shop')
 
    def form_valid(self, form):
@@ -82,41 +82,33 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
        return super().form_valid(form)
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
-    model = Product
-    form_class = ProductForm
+    model = Service
+    form_class = ServiceForm
     success_url = reverse_lazy('catalog:index_shop')
     permission_required = 'catalog.change_product'
 
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1,)
-        if self.request.method == 'POST':
-            formset = VersionFormset(self.request.POST, instance=self.object)
-        else:
-            formset = VersionFormset(instance=self.object)
-        context_data['formset'] = formset
-        return context_data
 
-    def form_valid(self, form):
-        formset = self.get_context_data()['formset']
-        if form.is_valid():
-            self.object = form.save()
-            if formset.is_valid():
-                formset.instance = self.object
-                formset.save()
-            else:
-                return self.form_invalid(form)
-        return super().form_valid(form)
+
+    # def form_valid(self, form):
+    #     formset = self.get_context_data()['formset']
+    #     if form.is_valid():
+    #         self.object = form.save()
+    #         if formset.is_valid():
+    #             formset.instance = self.object
+    #             formset.save()
+    #         else:
+    #             return self.form_invalid(form)
+    #     return super().form_valid(form)
 
     def get_form_class(self):
         if self.request.user.is_staff and self.request.user.groups.filter(
                 name='moderator').exists():
             return ModeratorForm
-        return ProductForm
+        return ServiceForm
 
     def test_func(self):
         _user = self.request.user
-        _instance: Product = self.get_object()
+        _instance: Service = self.get_object()
         custom_perms: tuple = (
             'catalog_app.set_is_published',
             'catalog_app.set_category',

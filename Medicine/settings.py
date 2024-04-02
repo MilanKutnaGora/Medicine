@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'catalog',
     'users',
     'record',
+    'staff'
     # 'django_apscheduler',
 ]
 

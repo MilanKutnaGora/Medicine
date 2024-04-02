@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import BaseInlineFormSet
 
-from catalog.models import Product
+from catalog.models import Service
 
 class StyleFormMixin:
     def __init__(self, *args, **kwargs):
@@ -12,40 +12,14 @@ class StyleFormMixin:
             else:
                 field.widget.attrs['class'] = 'form-control'
 
-class ProductForm(StyleFormMixin, forms.ModelForm):
+class ServiceForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
-        model = Product
+        model = Service
         exclude = ('owner',)
 
-    def clean_name(self):
-        cleaned_data = self.cleaned_data['name']
-
-        bad_word = ['секс', 'ИГИЛ', 'насилие', 'даллар', 'расстрел', 'бомба']
-
-        for word in bad_word:
-            if word in cleaned_data.lower():
-                raise forms.ValidationError('Недопустимые слова')
-
-            return cleaned_data
-
-    def clean_description(self):
-        cleaned_data = self.cleaned_data['description']
-
-        bad_word = ['секс', 'ИГИЛ', 'насилие', 'даллар', 'расстрел', 'бомба']
-
-        for word in bad_word:
-            if word in cleaned_data.lower():
-                raise forms.ValidationError('Недопустимые слова')
-
-            return cleaned_data
-
-class VersionForm(StyleFormMixin, forms.ModelForm):
-    class Meta:
-        model = Product
-        exclude = ('product',)
 
 class ModeratorForm(StyleFormMixin, forms.ModelForm):
     class Meta:
-        model = Product
-        exclude = ('product_name', 'preview', 'price', 'create_date', 'final_change_date', 'owner')
+        model = Service
+        exclude = ('name', 'description', 'price', 'date_base', 'date_change', 'owner')

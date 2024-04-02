@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from staff.models import Category, Staff
+from staff.models import Rank, Staff
 
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+@admin.register(Rank)
+class RankAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'description',)
     ordering = ('id',)
 
