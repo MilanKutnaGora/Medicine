@@ -16,7 +16,7 @@
                         <li>- {{ object.description }}</li>
                     </ul>
                     {% if perms.catalog.view_service %}
-                    <a href="{% url 'catalog:view_service' object.pk %}" class="btn btn-sm btn-block btn-outline-primary">Запись на прием к врачу</a>
+                    <a href="{% url 'record:create' %}" class="btn btn-sm btn-block btn-outline-primary">Запись на прием к врачу</a>
                     {% endif %}
                 </div>
             </div>

@@ -1,14 +1,22 @@
 from django.db import models
 
+NULLABLE = {'blank': True, 'null': True}
+
 class Record(models.Model):
-    name = models.CharField(max_length=100, verbose_name="заголовок")
-    description = models.TextField(null=False, verbose_name="содержимое")
+    last_name = models.CharField(max_length=20, verbose_name='Фамилия', **NULLABLE)
+    name = models.CharField(max_length=20, verbose_name="Имя", **NULLABLE)
+    surname = models.CharField(max_length=20, verbose_name='Отчество', **NULLABLE)
+    age = models.IntegerField(verbose_name="возраст", **NULLABLE)
+    gender = models.CharField(max_length=10, verbose_name="пол", **NULLABLE)
+    phone = models.CharField(max_length=15, verbose_name='телефон', **NULLABLE)
+    date_recorded = models.DateField(verbose_name="дата записи", **NULLABLE)
+    time_recorded = models.TimeField(verbose_name="время записи", **NULLABLE)
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="дата создания")
     publication = models.BooleanField(default=True, verbose_name="признак публикации")
-    views_count = models.IntegerField(default=0, verbose_name="колличество просмотров")
+
 
     def __str__(self):
-        return f'{self.name} {self.description}'
+        return f'{self.name} {self.surname} {self.age} {self.gender}'
 
     class Meta:
         verbose_name = 'запись на диагностику'

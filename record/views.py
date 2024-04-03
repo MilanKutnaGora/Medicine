@@ -8,7 +8,7 @@ from record.models import Record
 
 class RecordCreateView(CreateView):
     model = Record
-    fields = ('name', 'description',)
+    fields = ('last_name', 'name', 'surname', 'age', 'gender', 'phone','date_recorded', 'time_recorded')
     success_url = reverse_lazy('record:list')
 
     def form_valid(self, form):
@@ -21,7 +21,7 @@ class RecordCreateView(CreateView):
 
 class RecordUpdateView(UpdateView):
     model = Record
-    fields = ('name', 'description',)
+    fields = ('last_name', 'name', 'surname', 'age', 'gender', 'phone', 'date_recorded', 'time_recorded')
     # success_url = reverse_lazy('record:list')
 
     def form_valid(self, form):
@@ -47,11 +47,7 @@ class RecordListView(ListView):
 class RecordDetailView(DetailView):
     model = Record
 
-    def get_object(self, queryset=None):
-        self.object = super().get_object(queryset)
-        self.object.views_count +=1
-        self.object.save()
-        return self.object
+
 
 class RecordDeleteView(DeleteView):
     model = Record

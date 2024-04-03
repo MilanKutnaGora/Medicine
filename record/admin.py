@@ -5,8 +5,8 @@ from record.models import Record
 
 @admin.register(Record)
 class RecordAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'description',)
-    ordering = ('id',)
+    list_display = ('id', 'name', 'last_name', 'surname', 'age', 'gender', 'phone', 'date_recorded', 'time_recorded')
+    ordering = ('id', 'last_name', 'date_recorded', 'time_recorded')
 
 
 

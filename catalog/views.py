@@ -16,6 +16,7 @@ from catalog.services import get_cached_category_for_service
 def index(request):
     return render(request, 'catalog/home.html', )
 
+
 def index_contacts(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -26,7 +27,7 @@ def index_contacts(request):
 
 class ServiceListView(ListView):
     model = Service
-    template_name = 'catalog/service.html'
+    template_name = 'catalog/medicine.html'
 
     def get_queryset(self):
         queryset = super().get_queryset().filter(is_published=True)
@@ -56,7 +57,7 @@ def index_service(request, pk):
         'title': f'{category_item.name}'
         }
 
-    return render(request, 'catalog/medicine.html', context)
+    return render(request, 'catalog/service.html', context)
 
 
 
@@ -86,16 +87,16 @@ class ServiceUpdateView(LoginRequiredMixin, UpdateView):
 
 
 
-    # def form_valid(self, form):
-    #     formset = self.get_context_data()['formset']
-    #     if form.is_valid():
-    #         self.object = form.save()
-    #         if formset.is_valid():
-    #             formset.instance = self.object
-    #             formset.save()
-    #         else:
-    #             return self.form_invalid(form)
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        formset = self.get_context_data()['formset']
+        if form.is_valid():
+            self.object = form.save()
+            if formset.is_valid():
+                formset.instance = self.object
+                formset.save()
+            else:
+                return self.form_invalid(form)
+        return super().form_valid(form)
 
     def get_form_class(self):
         if self.request.user.is_staff and self.request.user.groups.filter(
