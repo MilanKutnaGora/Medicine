@@ -1,5 +1,7 @@
 from django.db import models
 
+from staff.models import Staff
+
 NULLABLE = {'blank': True, 'null': True}
 
 class Record(models.Model):
@@ -12,6 +14,8 @@ class Record(models.Model):
     date_recorded = models.DateField(verbose_name="дата записи", **NULLABLE)
     time_recorded = models.TimeField(verbose_name="время записи", **NULLABLE)
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="дата создания")
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE,
+                                 max_length=20, verbose_name='врач', **NULLABLE)
     publication = models.BooleanField(default=True, verbose_name="признак публикации")
 
 

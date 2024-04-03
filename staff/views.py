@@ -7,7 +7,7 @@ from staff.models import Staff
 
 class StaffCreateView(CreateView):
     model = Staff
-    fields = ('name', 'description',)
+    fields = ('name', 'description', 'avatar')
     success_url = reverse_lazy('staff:list')
 
 

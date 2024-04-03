@@ -2,9 +2,6 @@
 {% load my_tags %}
 
 {% block content_1 %}
-{#<p>#}
-{#<img src="https://www.advantshop.net/files/blog/kak-sozdat-sait-dlya-meditsinskogo-tsentra/3.jpg">#}
-{#</p>#}
     {% for object in object_list %}
         <div class="col-3">
             <div class="card mb-4 box-shadow">
@@ -12,25 +9,21 @@
                     <h4 class="my-0 font-weight-normal">{{ object }}</h4>
                 </div>
                 <div class="card-header">
-                    <img src="{% mymedia object.image %}" class="card-img-top object-fit-none" style="height:100px;"/>
+                    <img src="{% mymedia object.avatar %}" class="card-img-top object-fit-none" style="height:190px;" alt=""/>
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">Цена услуги {{ object.price }}</h1>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                        <li>- {{ object.description }}</li>
+                        <li>телефон - {{ object.phone }}</li>
+                        <li>@email - {{ object.email }}</li>
+                        <li>категория {{ object.name_category }}</li>
                     </ul>
                     {% if perms.catalog.view_service %}
-
-                    <a href="{% url 'record:create' %}" class="btn btn-sm btn-block btn-outline-primary">Запись на прием к врачу</a>
+                        <a href="{% url 'record:create' %}" class="btn btn-sm btn-block btn-outline-primary">Запись на прием к врачу</a>
                     {% endif %}
                 </div>
             </div>
         </div>
     {% endfor %}
-  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Сайт медицинской диагностики "МЕДТЕХ"</h1>
-    <p class="lead">Все виды медицинской диагностики и обследований</p>
-</div>
 {% endblock %}
 
 
